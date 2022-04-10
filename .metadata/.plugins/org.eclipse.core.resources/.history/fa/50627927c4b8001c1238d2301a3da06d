@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="HelloWorldO">
+        <property name="context-root" value="HelloWorldO"/>
+        <property name="java-output-path" value="/HelloWorldO/build/classes"/>
+    </wb-module>
+</project-modules>
