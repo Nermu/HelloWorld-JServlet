@@ -1,19 +1,16 @@
 
-public class ChatMessage {
+public class UserMessage {
 	
 	String userID;
-	String roomID;
 	String message;
 	
-	public ChatMessage() {
+	public UserMessage() {
 		userID = "";
-		roomID = "";
 		message = "";
 	}
-	public ChatMessage(String userID, String roomID,String message)
+	public UserMessage(String userID, String message)
 	{
 		this.userID = userID;
-		this.roomID = roomID;
 		this.message = message;
 	}
 	
@@ -24,14 +21,6 @@ public class ChatMessage {
 	public void setUserID()
 	{
 		this.userID = userID;
-	}
-	
-	public String getRoomID()
-	{
-		return roomID;
-	}
-	public void setRoomID() {
-		this.roomID = roomID;
 	}
 	
 	public String getMessage()

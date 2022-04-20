@@ -1,8 +1,12 @@
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.servlet.ServletException;
@@ -19,35 +23,38 @@ public class Chat extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	
-	
-	List<ChatMessage> usersList = new ArrayList<>();
-	
-	ChatMessage room = new ChatMessage();
+	Map<String , List<UserMessage>> usersByRoom = new HashMap<String , List<UserMessage>>();
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		for(ChatMessage user : usersList)
+		String roomID = request.getParameter("roomID"); 		
+		List<UserMessage> usersMessagesList = usersByRoom.get(roomID);
+		
+		for(UserMessage user : usersMessagesList)
 		{
-			//if(user.roomID == room.roomID) {
 			response.getWriter().println(user.userID + " : " + user.message + "<br>");
-			System.out.println(user.userID + " : " + user.message );
-			//}
-		}	  
+		}	
 	}
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		String userID = request.getParameter("userID");
-		System.out.println("UserName: " + userID);
-		String roomID = request.getParameter("roomID");
-		System.out.println("RoomID: " + roomID);
+		String roomID = request.getParameter("roomID"); 
+		String userID = request.getParameter("userID");		
 		String message = request.getParameter("message");
-		System.out.println("Message: " + message);
-		System.out.println("-------------");
+	    
+		UserMessage user = new UserMessage(userID, message);
+		List<UserMessage> userMessagesList = usersByRoom.get(roomID);
 		
-		usersList.add(new ChatMessage(userID, roomID, message));
-		
-	
+		if(userMessagesList == null) {
+			List<UserMessage> userList = new ArrayList<>();
+			userList.add(user);
+			usersByRoom.put(roomID, userList);
+		}else {
+			userMessagesList.add(user);
+			usersByRoom.replace(roomID, userMessagesList);
+		}
+
 	}
-	}
+
+}
