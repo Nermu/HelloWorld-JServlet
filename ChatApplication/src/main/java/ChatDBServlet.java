@@ -59,11 +59,8 @@ public class ChatDBServlet extends HttpServlet {
 		Connection con;
 		try {
 			String roomID = request.getParameter("roomID");
-			System.out.println(roomID);
 			String userID = request.getParameter("userID");
-			System.out.println(userID);
 			String message = request.getParameter("message");
-			System.out.println(message);
 			
 			UserMessage userMessages = new UserMessage(userID, message);
 			
